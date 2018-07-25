@@ -1,0 +1,70 @@
+﻿<h1>Employee listing</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{tableTitle}}
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2">
+                Filter by:
+            </div>
+            <div class="col-md-4">
+                <!--Two way binding-->
+                <input type="text" [(ngModel)]='filterText' />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Filtered By:{{filterText}}</h3>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <!--Build-in Directive-->
+            <table class="table" *ngIf='employees && employees.length'>
+                <thead>
+                    <tr>
+                        <th>
+                            <button class="btn btn-default" (click)='toggleImage()'>
+                                {{showImage?'Hide':'Show'}} Image
+                            </button>
+                        </th>
+                        <th>employee</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 star rating </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr *ngFor='let employee of employees'>-->
+                    <tr *ngFor='let employee of filteredemployee'>
+                        <td>
+                            <!--property binding-->
+                            <img *ngIf='showImage' [src]='employee.imageUrl' [title]='employee.employeeName|uppercase' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' />
+                            <!--<img *ngIf='showImage' src={{employee.imageUrl}} title={{employee.employeeName|uppercase}} style.width.px={{imageWidth}} style.margin.px={{imageMargin}} />-->
+                        </td>
+                        <td>
+                            <!--Interpolation-->
+                            {{employee.employeeName}}
+                        </td>
+                        <td>
+                            {{employee.employeeCode}}
+                        </td>
+                        <td>
+                            {{employee.date}}
+                        </td>
+                        <td>
+                            <!--pipes-->
+                            {{employee.price|currency:'INR':true:'1.1-2'}}
+                        </td>
+                        <td>
+                            {{employee.starRating}}
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

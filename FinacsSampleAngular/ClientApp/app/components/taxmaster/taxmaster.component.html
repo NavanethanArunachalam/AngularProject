@@ -1,0 +1,118 @@
+<!--<p>Welcome</p>-->
+<!--<div class="container">-->
+<div>
+    <h1>Tax Master</h1>
+    <form #heroForm="ngForm" >
+        <div [hidden]="heroForm.submitted">
+            <div class="cross-validation" [class.cross-validation-error]="(heroForm.touched || heroForm.dirty)">
+                <div class="form-group">
+                    <label for="tcode">TaxCode:</label>
+                    <input type="text" class="form-control" name="tcode" #tcode="ngModel"
+                           placeholder="Enter Tax Code" maxlength="5" ngModel required >
+
+                    <div *ngIf="tcode.invalid && (tcode.dirty || tcode.touched)"
+                         class="alert alert-danger">
+                        <div *ngIf="tcode.errors.required">
+                            Tax Code is required.
+                        </div>
+
+                        <div *ngIf="tcode.errors.maxlength">
+                            Tax Code can be 5 characters long.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="tdesc">Tax Code Description:</label>
+                    <input type="text" class="form-control" name="tdesc" #tdesc="ngModel"
+                           placeholder="Enter Tax Code Description" maxlength="50" ngModel required >
+                    <div *ngIf="tdesc.invalid && (tdesc.dirty || tdesc.touched)"
+                         class="alert alert-danger">
+                        <div *ngIf="tdesc.errors.required">
+                            Tax Code Description is required.
+                        </div>
+
+                        <div *ngIf="tcode.errors.maxlength">
+                            Tax Code can be 50 characters long.
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="trate">Tax Rate:</label>
+                    <input type="number" class="form-control" name="trate" #trate="ngModel" placeholder="Enter Tax Rate"
+                           step="0.01" maxlength="3" min="0" max="100" ngModel required>
+
+                    <div *ngIf="trate.invalid && (trate.dirty || trate.touched)"
+                         class="alert alert-danger">
+                        <div *ngIf="trate.errors.required">
+                            Tax Rate is required.
+                        </div>
+
+
+                        <div *ngIf="tcode.errors.maxlength">
+                            Tax Rate can be 3 characters long.
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="acode">Account Code:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="acode" #acode="ngModel" placeholder="Enter Account Code"
+                               maxlength="50" ngModel required>
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                    <div *ngIf="acode.invalid && (acode.dirty || acode.touched)"
+                         class="alert alert-danger">
+                        <div *ngIf="acode.errors.required">
+                            Account Code is required.
+                        </div>
+
+                        <div *ngIf="tcode.errors.maxlength">
+                            Account Code can be 50 characters long.
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="aname">Account Name:</label>
+                        <input type="text" class="form-control" name="aname" placeholder="" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="taxgroup">Tax Group:</label>
+                    <select name="taxgroup" class="form-control"
+                            required [(ngModel)]="powers" #power="ngModel">
+                        <option *ngFor="let p of powers" [value]="p">{{p}}</option>
+                    </select>
+                </div>
+
+                <label for="active">Status:</label>
+                <div class="form-group">
+                    <input value="active" type="radio" name="active" checked>Active
+                    <input value="inactive" type="radio" name="active">Inactive
+                </div>
+            </div>
+            <button type="button" class="btn btn-default"
+                    (click)="heroForm.resetForm({})">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-default" (click)="onSave()"
+                    [disabled]="heroForm.invalid">
+                    
+                Save
+            </button>
+
+        </div>
+        <div class="submitted-message" *ngIf="heroForm.submitted">
+            <p>You've successfully saved your tax details, {{ heroForm.value.tdesc }}!</p>
+            <button (click)="heroForm.resetForm({})">Add new Tax</button>
+        </div>
+    </form>
+</div>
